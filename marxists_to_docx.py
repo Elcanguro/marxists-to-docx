@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import re
 import sys
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -27,7 +28,6 @@ from docx.shared import Pt, RGBColor
 from docx.opc.constants import CONTENT_TYPE, RELATIONSHIP_TYPE
 from docx.opc.part import Part
 from docx.opc.packuri import PackURI
-
 
 # ----------------------------- Options -----------------------------
 
