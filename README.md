@@ -24,7 +24,7 @@ Auf modernen Debian-/Ubuntu-Versionen (Debian 12+, Ubuntu 23.04+) ist die system
 sudo apt update
 sudo apt install python3 python3-venv python3-pip git
 
-git clone https://github.com/<DEIN-USERNAME>/marxists-to-docx.git
+git clone https://github.com/mgmbmnb/marxists-to-docx.git
 cd marxists-to-docx
 
 python3 -m venv .venv
