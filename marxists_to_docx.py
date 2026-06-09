@@ -260,13 +260,25 @@ URL_ONLY_RE = re.compile(r"^\s*(https?://|www\.)\S+\s*$", re.IGNORECASE)
 PDF_MARKER_RE = re.compile(r"^\s*\[?\s*(pdf|download)\s*\]?\s*$", re.IGNORECASE)
 
 
-def fetch(url: str) -> BeautifulSoup:
-    resp = requests.get(url, timeout=30)
-    resp.raise_for_status()
-    # Marxists.org liefert oft iso-8859-1; requests rät meist richtig, aber sicherstellen:
-    if resp.encoding is None or resp.encoding.lower() == "iso-8859-1":
-        resp.encoding = resp.apparent_encoding or "iso-8859-1"
-    return BeautifulSoup(resp.text, "html.parser")
+def fetch(url: str, retries: int = 3, backoff_base: float = 1.0) -> BeautifulSoup:
+    """Holt die URL mit einfachen Retries bei Verbindungsfehlern."""
+    attempt = 0
+    while True:
+        try:
+            resp = requests.get(url, timeout=30)
+            resp.raise_for_status()
+            # Marxists.org liefert oft iso-8859-1; requests rät meist richtig, aber sicherstellen:
+            if resp.encoding is None or resp.encoding.lower() == "iso-8859-1":
+                resp.encoding = resp.apparent_encoding or "iso-8859-1"
+            return BeautifulSoup(resp.text, "html.parser")
+        except requests.exceptions.RequestException as e:
+            attempt += 1
+            if attempt > retries:
+                raise
+            wait = backoff_base * (2 ** (attempt - 1))
+            print(f"  Verbindung fehlgeschlagen ({e}); erneut in {wait:.0f}s (Versuch {attempt}/{retries})...")
+            time.sleep(wait)
+
 
 
 def extract_footnotes(soup: BeautifulSoup) -> dict[str, str]:
