@@ -24,7 +24,7 @@ Auf modernen Debian-/Ubuntu-Versionen (Debian 12+, Ubuntu 23.04+) ist die system
 sudo apt update
 sudo apt install python3 python3-venv python3-pip git
 
-git clone https://github.com/<DEIN-USERNAME>/marxists-to-docx.git
+git clone https://github.com/<mgmbmnb>/marxists-to-docx.git
 cd marxists-to-docx
 
 python3 -m venv .venv
@@ -41,7 +41,7 @@ Python 3 ist normalerweise vorinstalliert; ansonsten via [Homebrew](https://brew
 ```bash
 brew install python git
 
-git clone https://github.com/<DEIN-USERNAME>/marxists-to-docx.git
+git clone https://github.com/<mgmbmnb>/marxists-to-docx.git
 cd marxists-to-docx
 
 python3 -m venv .venv
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 Python von [python.org](https://www.python.org/downloads/) installieren (Häkchen bei „Add Python to PATH" setzen). Dann in PowerShell:
 
 ```powershell
-git clone https://github.com/<DEIN-USERNAME>/marxists-to-docx.git
+git clone https://github.com/<mgmbmnb>/marxists-to-docx.git
 cd marxists-to-docx
 
 python -m venv .venv
