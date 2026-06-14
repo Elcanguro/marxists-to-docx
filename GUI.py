@@ -80,9 +80,10 @@ task_queue = queue.Queue()
 stop_event = threading.Event()
 
 # Comletion Bild
-def show_completion_popup(output_path):
-    """Zeigt ein Popup-Fenster mit Erfolgs-Nachricht"""
 
+# Completion-Popup: ersetze vorhandene Funktionen durch diese eine Definition
+def show_completion_popup(output_path):
+    """Zeigt ein Popup-Fenster mit Erfolgs-Nachricht (Bild wenn möglich)."""
     layout_popup = [
         [sg.Text("✅ Erfolgreich abgeschlossen!", font=("Segoe UI", 14, "bold"), text_color="#107c10")],
         [sg.Text("")],
@@ -91,8 +92,6 @@ def show_completion_popup(output_path):
         [sg.Text("")],
     ]
 
-    # Lade Bild, konvertiere zu PNG-Bytes und füge als Image ein (robuste Methode)
-def show_completion_popup(output_path):
     try:
         img_bytes = None
         if DEFAULT_IMAGE.exists():
@@ -101,12 +100,12 @@ def show_completion_popup(output_path):
                 im.convert("RGBA").save(bio, format="PNG")
                 img_bytes = bio.getvalue()
         if img_bytes:
-            layout_popup.append([sg.Image(data=img_bytes, size=(200, 200))])
+            layout_popup.append([sg.Image(data=img_bytes, size=(600, 600))])
         else:
-            layout_popup.append([sg.Text("🎉 🎊 🎉", font=("Arial", 60))])
+            layout_popup.append([sg.Text("🎉 🎊 🎉", font=("Segoe UI", 60))])
     except Exception as e:
         print(f"⚠️ Bild konnte nicht geladen werden: {e}")
-        layout_popup.append([sg.Text("🎉 🎊 🎉", font=("Arial", 60))])
+        layout_popup.append([sg.Text("🎉 🎊 🎉", font=("Segoe UI", 60))])
 
     layout_popup.append([sg.Text("")])
     layout_popup.append([sg.Button("OK", size=(15, 1), button_color=(COLOR_TEXT, "#107c10"))])
@@ -117,6 +116,7 @@ def show_completion_popup(output_path):
         if event == sg.WINDOW_CLOSED or event == "OK":
             break
     popup_window.close()
+
 
 def main_task(urls, output_name, opts: backend.Options, out_q: queue.Queue, stop_evt: threading.Event):
     try:
