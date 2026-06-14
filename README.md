@@ -77,10 +77,14 @@ pip install -r requirements.txt
 
 ## Benutzung
 
-In VS Code öffnen und mit **F5** / „Run Python File" starten — oder im Terminal:
+1) Virtual Envoirment aktivieren
 
 ```bash
-python marxists_to_docx.py
+source .venv/bin/activate
+```
+
+```bash
+python GUI.py
 ```
 
 Das Script fragt dann nach:
